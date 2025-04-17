@@ -74,8 +74,6 @@ Featured Publications:
 - [Hashnode](https://dcode.hashnode.dev/the-r-language-an-overview)
 - Scaler
 
-
-
 ## Certifications & Credentials
 
 | Certification                                                  | Issuing Organization         | Date Issued | Description |

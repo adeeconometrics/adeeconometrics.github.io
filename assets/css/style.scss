@@ -6,7 +6,7 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
 
 @import "jekyll-theme-chirpy";
 
-/* Custom table styles for trainings page */
+/* Default table styles */
 .table-wrapper {
   max-width: 100%;
   overflow-x: auto;
@@ -15,35 +15,58 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
   table {
     width: 100%;
     margin-bottom: 1rem;
+    border-collapse: collapse;
     
     th, td {
       padding: 0.75rem;
       vertical-align: top;
       border-top: 1px solid #dee2e6;
-      min-width: 150px; // Minimum width for columns
-    }
-    
-    // Column-specific widths
-    th:nth-child(1), td:nth-child(1) { width: 30%; } // Certification
-    th:nth-child(2), td:nth-child(2) { width: 15%; } // Issuing Organization
-    th:nth-child(3), td:nth-child(3) { width: 15%; } // Date
-    th:nth-child(4), td:nth-child(4) { width: 40%; } // Description
-    
-    // Wrap text in cells
-    td {
-      white-space: normal;
-      word-wrap: break-word;
     }
   }
 }
 
-// Mobile responsive adjustments
-@media (max-width: 768px) {
+/* Custom table styles for trainings page */
+.trainings-page {
   .table-wrapper {
     table {
+      border-top: 2px solid #dee2e6;
+      border-bottom: 2px solid #dee2e6;
+      
       th, td {
-        min-width: 120px;
-        font-size: 0.9rem;
+        padding: 1rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+        min-width: 150px;
+      }
+      
+      // Column-specific widths
+      th:nth-child(1), td:nth-child(1) { width: 30%; } // Certification
+      th:nth-child(2), td:nth-child(2) { width: 15%; } // Issuing Organization
+      th:nth-child(3), td:nth-child(3) { width: 15%; } // Date
+      th:nth-child(4), td:nth-child(4) { width: 40%; } // Description
+      
+      // Header row styling
+      thead tr {
+        border-bottom: 2px solid #dee2e6;
+      }
+      
+      // Wrap text in cells
+      td {
+        white-space: normal;
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  // Mobile responsive adjustments
+  @media (max-width: 768px) {
+    .table-wrapper {
+      table {
+        th, td {
+          min-width: 120px;
+          font-size: 0.9rem;
+          padding: 0.75rem;
+        }
       }
     }
   }
