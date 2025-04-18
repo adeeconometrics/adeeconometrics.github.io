@@ -4,7 +4,18 @@ icon: fas fa-tools
 order: 5
 ---
 
-{: .table-responsive }
+My professional development journey encompasses comprehensive training across multiple technical domains, focusing on cloud architecture, software development, and agile methodologies. These trainings have equipped me with:
+
+- **Azure Cloud Architecture**: In-depth understanding of Azure services, cost optimization, and enterprise architecture patterns
+- **Agile & Scrum Mastery**: Extensive training in Scrum frameworks, team leadership, and agile project management
+- **UX/UI Design**: Practical knowledge in user experience design, interaction design principles, and product development
+- **Technical Leadership**: Skills in problem-solving, time management, and strategic product management
+- **Data Literacy**: Capabilities in analytical thinking and data-driven decision making
+
+The following comprehensive list details my training accomplishments, reflecting my commitment to continuous learning and professional excellence.
+
+
+---
 
 | Certification                                                                                                                                                                                                                                                                                                                                                                    | Issuing Organization   |
 |:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------|

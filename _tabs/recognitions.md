@@ -7,7 +7,7 @@ order: 6
 
 ## 2025
 
-- **Everyday Excellence Award: University Outreach Impact** _Recognized for significant contributions to university engagement programs, where knowledge sharing and mentorship made a measurable impact on students' future career development._
+- **Everyday Excellence Award: University Outreach Impact** _Recognized for significant contributions to university engagement programs, where knowledge sharing and mentorship made a measurable impact on students' future career development._
 
 ## 2024
 
