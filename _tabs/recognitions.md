@@ -12,7 +12,7 @@ order: 6
 ## 2024
 
 - **Human Energy Award: Technical Modernization Leadership** _Recognized for demonstrating exceptional maturity and capability in modernizing the NextPage-Dash library and enhancing the az-appgateway role, contributing directly to team success through workflow improvements and technical leadership._
-- **Team Achievement Recognition: Cross-Functional Deadline Achievement** _Acknowledged for valuable contributions to the ITFP - A&PES - WebApps/App Stack team, demonstrating technical adaptability by taking on challenging user stories that drove professional and technical growth._
+- **Team Achievement Recognition: Cross-Functional Collaboration** _Acknowledged for valuable contributions to the ITFP - A&PES - WebApps/App Stack team, demonstrating technical adaptability by taking on challenging user stories that drove professional and technical growth._
 - **Technical Excellence Recognition: Ansible Testing Initiative** _Commended for exceptional teamwork and technical initiative in taking ownership of Ansible 10 testing requirements, ensuring timely completion of critical team deliverables while expanding personal technical capabilities._
 - **Human Energy Award: Program Increment Delivery Excellence** _Recognized for collaborative efforts in delivering high-quality solutions for Program Increment, meeting all requirements and ensuring measurable value for end users._
 - **Everyday Excellence Award: Cybersecurity Event Leadership** _Acknowledged for seamless organization and execution of the Horizon Cybersecurity Event, demonstrating strong project management and cross-functional coordination skills._
