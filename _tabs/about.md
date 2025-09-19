@@ -26,10 +26,17 @@ I believe in the power of technology to transform lives and solve real-world pro
 
 
 ## Experience 
+### Integrations Engineer - IT Foundations, Chevron
+
+Jul 2025 - Present
+
+- Designed an API-enabled MCP server pattern with an authentication layer enabling RBAC and SSO that serves as a foundation for secure machine-to-service automation enabling interoperable transactions to integrate with MCP agents (Innovation Initiative).
+
+- Improved global networking & security posture by implementing the Azure Frontdoor Standard/Premium Ansible Role for enterprise workloads which helped consolidate global edge routing, modern WAF policies, and TLS termination enabling up to ~45% TCO reduction in target scenarios while strengthening threat protection. 
 
 ### Software Engineer - IT Foundations, Chevron
 
-Feb 2024 - Present
+Feb 2024 - Jul 2025
 
 - Developed frontend library components for an Enterprise UI library to support Python-Dash and render dashboards in native enterprise design language.
   - Enhanced user experience and consistency across enterprise dashboards, improving data visualization and decision-making.
