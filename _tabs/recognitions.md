@@ -7,6 +7,8 @@ order: 6
 
 ## 2025
 
+- **Everyday Excellence Award**: _GenAI & Ansible Integration For driving GenAI adoption in Ansible development — introducing practical best practices, improving documentation, and demonstrating value to stakeholders through targeted demos that accelerated adoption and improved developer productivity_.
+
 - **Everyday Excellence Award: University Outreach Impact** _Recognized for significant contributions to university engagement programs, where knowledge sharing and mentorship made a measurable impact on students' future career development._
 
 ## 2024
