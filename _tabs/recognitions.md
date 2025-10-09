@@ -27,3 +27,7 @@ order: 6
 
 - **Human Energy Award: Technical Independence and Innovation** _Recognized for independent work ethic, enthusiasm for adopting new technologies, and delivering valuable contributions based on technical expertise that set new standards for team performance._
 - **Human Energy Award: Geospatial Tools Advancement** _Acknowledged for remarkable technical creativity in improving Data Governance Geospatial tools, demonstrating effective application of newly acquired skills that enhanced data quality management capabilities for GIS teams._
+
+{% include pdf-carousel.html pdfs=site.data.recognitions_pdfs %}
+
+_Tips: place your PDF files under `assets/pdfs/` and use the include above with an array of {title,url} objects.

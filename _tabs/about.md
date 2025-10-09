@@ -7,10 +7,13 @@ order: 4
 
 # About Me
 
-Welcome to my personal website! I'm Dave Amiana, a passionate developer exploring the vast world of software development.
+Welcome to my personal website! I'm Dave Amiana, a passionate software engineer specializing in enterprise architecture, automation, and innovative development solutions.
 
+With expertise spanning cloud infrastructure, API design, language server development, and AI-powered automation tools, I focus on building scalable, secure, and efficient systems that solve complex real-world challenges. My experience ranges from developing enterprise UI libraries and Ansible automation tools to implementing cutting-edge GenAI solutions with RAG architectures and local inferencing.
 
-I believe in the power of technology to transform lives and solve real-world problems. My journey in computer science is driven by curiosity, continuous learning, and a desire to innovate. I strive to write clean, efficient, and maintainable code while sharing my knowledge with the community.
+I'm particularly passionate about creating developer tools and experiences that enhance productivity—whether it's building language servers for better code assistance, designing API-enabled MCP server patterns with robust authentication layers, or developing automation frameworks that streamline complex workflows. My work bridges the gap between innovative technology and practical enterprise solutions, always with an eye toward maintainability, security, and performance optimization.
+
+I believe in the transformative power of well-architected software and the importance of sharing knowledge with the development community. Every project is an opportunity to push boundaries, solve interesting problems, and contribute to the evolving landscape of software engineering.
 
   
 ---

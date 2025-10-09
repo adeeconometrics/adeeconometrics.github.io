@@ -1,0 +1,133 @@
+<!--
+  PDF Carousel include
+  Usage: {% include pdf-carousel.html pdfs=site.data.recognitions_pdfs %}
+  `pdfs` should be an array of objects with `title` and `url` keys.
+-->
+
+<link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
+<style>
+    .pdf-carousel-container {
+        margin: 1rem 0;
+    }
+
+    .pdf-slide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pdf-canvas {
+        width: 160px;
+        height: 220px;
+        border: 1px solid var(--muted-color, #ddd);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .pdf-title {
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        text-align: center;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: var(--accent-color, #007acc);
+    }
+</style>
+
+<div class="pdf-carousel-container">
+    <div class="swiper pdf-swiper">
+        <div class="swiper-wrapper">
+            {% assign pdfs = include.pdfs | default: [] %}
+            {% for p in pdfs %}
+            <div class="swiper-slide pdf-slide" data-pdf-url="{{ p.url }}">
+                <canvas class="pdf-canvas" data-pdf-title="{{ p.title | escape }}"></canvas>
+                <div class="pdf-title">{{ p.title }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Add navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.172/pdf.min.js"></script>
+<script>
+    (function () {
+        if (window._pdfCarouselInit) return; // avoid double-init on same page
+        window._pdfCarouselInit = true;
+
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        if (pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.172/pdf.worker.min.js';
+        }
+
+        function renderThumbnail(url, canvas, scale) {
+            scale = scale || 1.0;
+            // load pdf
+            pdfjsLib.getDocument(url).promise.then(function (pdf) {
+                // render first page
+                return pdf.getPage(1).then(function (page) {
+                    const viewport = page.getViewport({ scale: scale });
+                    const context = canvas.getContext('2d');
+                    // size canvas
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    const renderContext = { canvasContext: context, viewport: viewport };
+                    return page.render(renderContext).promise;
+                });
+            }).catch(function (err) {
+                console.error('PDF render error', err);
+                // show fallback
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#f3f3f3';
+                ctx.fillRect(0, 0, canvas.width || 160, canvas.height || 220);
+                ctx.fillStyle = '#999';
+                ctx.font = '12px sans-serif';
+                ctx.fillText('Preview unavailable', 8, 20);
+            });
+        }
+
+        function init() {
+            const slides = document.querySelectorAll('.pdf-slide');
+            slides.forEach(function (slide) {
+                const url = slide.getAttribute('data-pdf-url');
+                const canvas = slide.querySelector('canvas.pdf-canvas');
+                if (!url || !canvas) return;
+                // try to render at a scale that fits canvas CSS size
+                const cssW = parseInt(getComputedStyle(canvas).width);
+                const cssH = parseInt(getComputedStyle(canvas).height);
+                // approximate scale based on 96dpi assumption
+                const scale = Math.min(2, Math.max(0.6, cssW / 160));
+                renderThumbnail(url, canvas, scale);
+
+                // click to open full PDF in new tab
+                slide.addEventListener('click', function (e) {
+                    // allow clicking title without triggering if link or selection
+                    window.open(url, '_blank');
+                });
+            });
+
+            // initialize swiper
+            new Swiper('.pdf-swiper', {
+                slidesPerView: 3,
+                spaceBetween: 16,
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                breakpoints: {
+                    320: { slidesPerView: 1 },
+                    640: { slidesPerView: 2 },
+                    980: { slidesPerView: 3 }
+                }
+            });
+        }
+
+        // Wait for DOMContentLoaded if not already
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+    })();
+</script>
