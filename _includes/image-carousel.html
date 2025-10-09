@@ -31,6 +31,63 @@
         transform: scale(1.02);
     }
 
+    /* depth / floating effect */
+    .image-swiper {
+        perspective: 1000px;
+    }
+
+    .image-slide {
+        transition: transform .25s ease, opacity .25s ease;
+    }
+
+    .image-slide.swiper-slide-active img {
+        transform: scale(1.06);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .image-slide.swiper-slide-next img,
+    .image-slide.swiper-slide-prev img {
+        transform: scale(0.98) translateZ(-10px);
+        opacity: 0.95;
+    }
+
+    /* tiny pager */
+    .tiny-pager {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .75rem;
+        margin-top: .5rem;
+        user-select: none;
+    }
+
+    .tiny-pager button {
+        appearance: none;
+        border: 1px solid rgba(0, 0, 0, .12);
+        background: var(--card-bg, #fff);
+        color: var(--accent-color, #007acc);
+        font: inherit;
+        padding: .25rem .6rem;
+        border-radius: 6px;
+        line-height: 1;
+        cursor: pointer;
+        transition: background .15s ease, transform .1s ease;
+    }
+
+    .tiny-pager button:hover {
+        background: rgba(0, 0, 0, .04);
+    }
+
+    .tiny-pager button:active {
+        transform: translateY(1px);
+    }
+
+    .tiny-pager .page-indicator {
+        min-width: 4.5rem;
+        text-align: center;
+        font-weight: 600;
+    }
+
     .swiper-button-next,
     .swiper-button-prev {
         color: var(--accent-color, #007acc);
@@ -119,6 +176,12 @@
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
+    <!-- Tiny pager: prev | page | next -->
+    <div class="tiny-pager" role="group" aria-label="Page navigation">
+        <button class="tiny-prev" aria-label="Previous page">◀</button>
+        <span class="page-indicator" aria-live="polite"><!-- filled by JS --></span>
+        <button class="tiny-next" aria-label="Next page">▶</button>
+    </div>
 </div>
 
 <!-- Modal / Lightbox -->
@@ -136,7 +199,47 @@
     (function () {
         if (window._imageCarouselInit) return; window._imageCarouselInit = true;
         document.addEventListener('DOMContentLoaded', function () {
-            var swiper = new Swiper('.image-swiper', { slidesPerView: 3, spaceBetween: 18, centeredSlides: false, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, breakpoints: { 320: { slidesPerView: 1 }, 640: { slidesPerView: 2 }, 980: { slidesPerView: 3 } } });
+            var swiper = new Swiper('.image-swiper', {
+                effect: 'coverflow',
+                coverflowEffect: { rotate: 0, stretch: 0, depth: 140, modifier: 1, slideShadows: false },
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                spaceBetween: 18,
+                grabCursor: true,
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                watchSlidesProgress: true,
+                breakpoints: {
+                    320: { spaceBetween: 12 },
+                    640: { spaceBetween: 16 },
+                    980: { spaceBetween: 18 }
+                }
+            });
+
+            // Tiny pager wiring
+            var pager = document.querySelector('.tiny-pager');
+            var prevBtn = pager.querySelector('.tiny-prev');
+            var nextBtn = pager.querySelector('.tiny-next');
+            var pageEl = pager.querySelector('.page-indicator');
+
+            function updatePager() {
+                var total = swiper.slides ? swiper.slides.length : 0;
+                // When using slidesPerView:'auto', Swiper includes only real slides here
+                var current = (swiper.realIndex || 0) + 1;
+                if (total < 1) {
+                    pager.style.display = 'none';
+                } else {
+                    pager.style.display = 'flex';
+                    pageEl.textContent = current + ' / ' + total;
+                }
+            }
+
+            swiper.on('init', updatePager);
+            swiper.on('slideChange', updatePager);
+            // If Swiper already initialized immediately
+            if (swiper.initialized) updatePager();
+
+            prevBtn.addEventListener('click', function () { swiper.slidePrev(); });
+            nextBtn.addEventListener('click', function () { swiper.slideNext(); });
 
             // Modal functionality
             var modal = document.querySelector('.image-modal');
