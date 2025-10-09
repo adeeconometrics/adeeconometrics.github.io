@@ -30,4 +30,5 @@ order: 6
 
 {% include pdf-carousel.html pdfs=site.data.recognitions_pdfs %}
 
-_Tips: place your PDF files under `assets/pdfs/` and use the include above with an array of {title,url} objects.
+
+{% include image-carousel.html folder="assets/pdfs" %}

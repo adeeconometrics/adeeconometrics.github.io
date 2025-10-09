@@ -1,0 +1,40 @@
+<!--
+  Image carousel include
+  Usage: {% raw %}{% include image-carousel.html folder="assets/pdfs" %}{% endraw %}
+  `folder` - path under the site root where images live (no leading slash). Defaults to "assets/pdfs".
+-->
+
+<link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
+<style>
+  .image-carousel { margin: 1rem 0; }
+  .image-slide { display:flex; align-items:center; justify-content:center; }
+  .image-slide img { max-width:220px; max-height:300px; object-fit:contain; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
+  .swiper-button-next, .swiper-button-prev { color: var(--accent-color, #007acc); }
+</style>
+
+<div class="image-carousel">
+  <div class="swiper image-swiper">
+    <div class="swiper-wrapper">
+      {% assign folder = include.folder | default: "assets/pdfs" %}
+      {% for f in site.static_files %}
+        {% if f.path contains folder and f.extname == ".png" or f.path contains folder and f.extname == ".jpg" or f.path contains folder and f.extname == ".jpeg" %}
+          <div class="swiper-slide image-slide">
+            <img src="{{ f.path }}" alt="{{ f.name }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+<script>
+  (function(){
+    if (window._imageCarouselInit) return; window._imageCarouselInit = true;
+    document.addEventListener('DOMContentLoaded', function(){
+      new Swiper('.image-swiper', { slidesPerView:3, spaceBetween:16, navigation:{ nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev' }, breakpoints: {320:{slidesPerView:1},640:{slidesPerView:2},980:{slidesPerView:3}} });
+    });
+  })();
+</script>
