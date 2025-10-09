@@ -1,7 +1,7 @@
 <!--
-  PDF Carousel include
-  Usage: {% include pdf-carousel.html pdfs=site.data.recognitions_pdfs %}
-  `pdfs` should be an array of objects with `title` and `url` keys.
+    PDF Carousel include
+    Usage: {% raw %}{% include pdf-carousel.html pdfs=site.data.recognitions_pdfs %}{% endraw %}
+    `pdfs` should be an array of objects with `title` and `url` keys.
 -->
 
 <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
@@ -41,7 +41,7 @@
 <div class="pdf-carousel-container">
     <div class="swiper pdf-swiper">
         <div class="swiper-wrapper">
-            {% assign pdfs = include.pdfs | default: [] %}
+            {% assign pdfs = include.pdfs %}
             {% for p in pdfs %}
             <div class="swiper-slide pdf-slide" data-pdf-url="{{ p.url }}">
                 <canvas class="pdf-canvas" data-pdf-title="{{ p.title | escape }}"></canvas>
