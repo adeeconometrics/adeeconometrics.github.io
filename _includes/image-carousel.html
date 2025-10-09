@@ -15,6 +15,8 @@
         align-items: center;
         justify-content: center;
         cursor: zoom-in;
+        /* Ensure a width before images load so Swiper can measure slides */
+        width: 320px;
     }
 
     /* larger thumbnails */
@@ -49,6 +51,29 @@
     .image-slide.swiper-slide-prev img {
         transform: scale(0.98) translateZ(-10px);
         opacity: 0.95;
+    }
+
+    /* responsive slide width so auto sizing works reliably */
+    @media (max-width: 640px) {
+        .image-slide {
+            width: 260px;
+        }
+
+        .image-slide img {
+            max-width: 260px;
+            max-height: 380px;
+        }
+    }
+
+    @media (min-width: 641px) and (max-width: 979px) {
+        .image-slide {
+            width: 300px;
+        }
+
+        .image-slide img {
+            max-width: 300px;
+            max-height: 420px;
+        }
     }
 
     /* tiny pager */
@@ -167,8 +192,8 @@
             {% for f in images %}
             {% assign ext = f.extname | downcase %}
             {% if ext == ".png" or ext == ".jpg" or ext == ".jpeg" %}
-            <div class="swiper-slide image-slide" data-src="{{ f.path }}" data-name="{{ f.name }}">
-                <img src="{{ f.path }}" alt="{{ f.name }}">
+            <div class="swiper-slide image-slide" data-src="{{ f.path | relative_url }}" data-name="{{ f.name }}">
+                <img src="{{ f.path | relative_url }}" alt="{{ f.name }}">
             </div>
             {% endif %}
             {% endfor %}
@@ -182,48 +207,53 @@
         <span class="page-indicator" aria-live="polite"><!-- filled by JS --></span>
         <button class="tiny-next" aria-label="Next page">▶</button>
     </div>
-</div>
 
-<!-- Modal / Lightbox -->
-<div class="image-modal" aria-hidden="true" role="dialog">
-    <div class="modal-inner">
-        <button class="close" aria-label="Close">✕</button>
-        <button class="prev" aria-label="Previous">◀</button>
-        <img src="" alt="" />
-        <button class="next" aria-label="Next">▶</button>
+    <!-- Modal / Lightbox (scoped inside the carousel container) -->
+    <div class="image-modal" aria-hidden="true" role="dialog">
+        <div class="modal-inner">
+            <button class="close" aria-label="Close">✕</button>
+            <button class="prev" aria-label="Previous">◀</button>
+            <img src="" alt="" />
+            <button class="next" aria-label="Next">▶</button>
+        </div>
     </div>
 </div>
 
 <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
 <script>
     (function () {
-        if (window._imageCarouselInit) return; window._imageCarouselInit = true;
-        document.addEventListener('DOMContentLoaded', function () {
-            var swiper = new Swiper('.image-swiper', {
+        function init(container) {
+            if (!container || container.dataset.initialized === 'true') return;
+            container.dataset.initialized = 'true';
+
+            var swiperEl = container.querySelector('.image-swiper');
+            var nextEl = container.querySelector('.swiper-button-next');
+            var prevEl = container.querySelector('.swiper-button-prev');
+
+            var swiper = new Swiper(swiperEl, {
                 effect: 'coverflow',
                 coverflowEffect: { rotate: 0, stretch: 0, depth: 140, modifier: 1, slideShadows: false },
                 centeredSlides: true,
                 slidesPerView: 'auto',
                 spaceBetween: 18,
                 grabCursor: true,
-                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                preloadImages: true,
+                updateOnImagesReady: true,
+                observer: true,
+                observeParents: true,
+                navigation: { nextEl: nextEl, prevEl: prevEl },
                 watchSlidesProgress: true,
-                breakpoints: {
-                    320: { spaceBetween: 12 },
-                    640: { spaceBetween: 16 },
-                    980: { spaceBetween: 18 }
-                }
+                breakpoints: { 320: { spaceBetween: 12 }, 640: { spaceBetween: 16 }, 980: { spaceBetween: 18 } }
             });
 
-            // Tiny pager wiring
-            var pager = document.querySelector('.tiny-pager');
+            // Tiny pager wiring (scoped)
+            var pager = container.querySelector('.tiny-pager');
             var prevBtn = pager.querySelector('.tiny-prev');
             var nextBtn = pager.querySelector('.tiny-next');
             var pageEl = pager.querySelector('.page-indicator');
 
             function updatePager() {
                 var total = swiper.slides ? swiper.slides.length : 0;
-                // When using slidesPerView:'auto', Swiper includes only real slides here
                 var current = (swiper.realIndex || 0) + 1;
                 if (total < 1) {
                     pager.style.display = 'none';
@@ -232,19 +262,16 @@
                     pageEl.textContent = current + ' / ' + total;
                 }
             }
-
-            swiper.on('init', updatePager);
             swiper.on('slideChange', updatePager);
-            // If Swiper already initialized immediately
-            if (swiper.initialized) updatePager();
-
+            // Update immediately after creation
+            updatePager();
             prevBtn.addEventListener('click', function () { swiper.slidePrev(); });
             nextBtn.addEventListener('click', function () { swiper.slideNext(); });
 
-            // Modal functionality
-            var modal = document.querySelector('.image-modal');
+            // Modal functionality (scoped)
+            var modal = container.querySelector('.image-modal');
             var modalImg = modal.querySelector('img');
-            var slides = Array.from(document.querySelectorAll('.image-slide'));
+            var slides = Array.from(container.querySelectorAll('.image-slide'));
             var currentIndex = -1;
 
             function openAt(index) {
@@ -262,7 +289,7 @@
             function showPrev() { openAt((currentIndex - 1 + slides.length) % slides.length); }
 
             slides.forEach(function (slide, idx) {
-                slide.addEventListener('click', function (e) { openAt(idx); });
+                slide.addEventListener('click', function () { openAt(idx); });
             });
 
             modal.querySelector('.close').addEventListener('click', closeModal);
@@ -276,9 +303,29 @@
                     if (e.key === 'ArrowLeft') showPrev();
                 }
             });
-
-            // close on outside click
             modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-        });
+        }
+
+        function initAll() {
+            // Wait for Swiper to be available (CDN load race safety)
+            var tries = 0;
+            (function waitSwiper() {
+                if (window.Swiper) {
+                    document.querySelectorAll('.image-carousel').forEach(init);
+                } else if (tries++ < 40) { // ~2s at 50ms intervals
+                    setTimeout(waitSwiper, 50);
+                } else {
+                    console.error('Swiper failed to load; image carousel not initialized');
+                }
+            })();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAll);
+        } else {
+            initAll();
+        }
+        // Handle bfcache restore or SPA-like events
+        window.addEventListener('pageshow', function () { initAll(); });
     })();
 </script>
