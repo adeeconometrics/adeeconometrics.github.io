@@ -6,35 +6,176 @@
 
 <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css">
 <style>
-  .image-carousel { margin: 1rem 0; }
-  .image-slide { display:flex; align-items:center; justify-content:center; }
-  .image-slide img { max-width:220px; max-height:300px; object-fit:contain; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
-  .swiper-button-next, .swiper-button-prev { color: var(--accent-color, #007acc); }
+    .image-carousel {
+        margin: 1rem 0;
+    }
+
+    .image-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: zoom-in;
+    }
+
+    /* larger thumbnails */
+    .image-slide img {
+        max-width: 340px;
+        max-height: 460px;
+        object-fit: contain;
+        border-radius: 6px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        transition: transform .18s ease;
+    }
+
+    .image-slide img:hover {
+        transform: scale(1.02);
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: var(--accent-color, #007acc);
+    }
+
+    /* modal / lightbox */
+    .image-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+
+    .image-modal.open {
+        display: flex;
+    }
+
+    .image-modal .modal-inner {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .image-modal img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 6px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .image-modal .close,
+    .image-modal .prev,
+    .image-modal .next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.06);
+        border: none;
+        color: #fff;
+        font-size: 1.6rem;
+        padding: 0.6rem 0.8rem;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .image-modal .close {
+        right: 1rem;
+        top: 1rem;
+        transform: none;
+    }
+
+    .image-modal .prev {
+        left: -3rem;
+    }
+
+    .image-modal .next {
+        right: -3rem;
+    }
+
+    @media (max-width:640px) {
+
+        .image-modal .prev,
+        .image-modal .next {
+            display: none;
+        }
+    }
 </style>
 
 <div class="image-carousel">
-  <div class="swiper image-swiper">
-    <div class="swiper-wrapper">
-      {% assign folder = include.folder | default: "assets/pdfs" %}
-      {% for f in site.static_files %}
-        {% if f.path contains folder and f.extname == ".png" or f.path contains folder and f.extname == ".jpg" or f.path contains folder and f.extname == ".jpeg" %}
-          <div class="swiper-slide image-slide">
-            <img src="{{ f.path }}" alt="{{ f.name }}">
-          </div>
-        {% endif %}
-      {% endfor %}
+    <div class="swiper image-swiper">
+        <div class="swiper-wrapper">
+            {% assign folder = include.folder | default: "assets/pdfs" %}
+            {% assign images = site.static_files | where_exp: "item","item.path contains folder" %}
+            {% for f in images %}
+            {% assign ext = f.extname | downcase %}
+            {% if ext == ".png" or ext == ".jpg" or ext == ".jpeg" %}
+            <div class="swiper-slide image-slide" data-src="{{ f.path }}" data-name="{{ f.name }}">
+                <img src="{{ f.path }}" alt="{{ f.name }}">
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
+</div>
+
+<!-- Modal / Lightbox -->
+<div class="image-modal" aria-hidden="true" role="dialog">
+    <div class="modal-inner">
+        <button class="close" aria-label="Close">✕</button>
+        <button class="prev" aria-label="Previous">◀</button>
+        <img src="" alt="" />
+        <button class="next" aria-label="Next">▶</button>
+    </div>
 </div>
 
 <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
 <script>
-  (function(){
-    if (window._imageCarouselInit) return; window._imageCarouselInit = true;
-    document.addEventListener('DOMContentLoaded', function(){
-      new Swiper('.image-swiper', { slidesPerView:3, spaceBetween:16, navigation:{ nextEl:'.swiper-button-next', prevEl:'.swiper-button-prev' }, breakpoints: {320:{slidesPerView:1},640:{slidesPerView:2},980:{slidesPerView:3}} });
-    });
-  })();
+    (function () {
+        if (window._imageCarouselInit) return; window._imageCarouselInit = true;
+        document.addEventListener('DOMContentLoaded', function () {
+            var swiper = new Swiper('.image-swiper', { slidesPerView: 3, spaceBetween: 18, centeredSlides: false, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, breakpoints: { 320: { slidesPerView: 1 }, 640: { slidesPerView: 2 }, 980: { slidesPerView: 3 } } });
+
+            // Modal functionality
+            var modal = document.querySelector('.image-modal');
+            var modalImg = modal.querySelector('img');
+            var slides = Array.from(document.querySelectorAll('.image-slide'));
+            var currentIndex = -1;
+
+            function openAt(index) {
+                if (index < 0 || index >= slides.length) return;
+                var s = slides[index];
+                var src = s.getAttribute('data-src');
+                var name = s.getAttribute('data-name') || '';
+                modalImg.src = src; modalImg.alt = name;
+                modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+                currentIndex = index;
+            }
+
+            function closeModal() { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); currentIndex = -1; }
+            function showNext() { openAt((currentIndex + 1) % slides.length); }
+            function showPrev() { openAt((currentIndex - 1 + slides.length) % slides.length); }
+
+            slides.forEach(function (slide, idx) {
+                slide.addEventListener('click', function (e) { openAt(idx); });
+            });
+
+            modal.querySelector('.close').addEventListener('click', closeModal);
+            modal.querySelector('.next').addEventListener('click', showNext);
+            modal.querySelector('.prev').addEventListener('click', showPrev);
+
+            document.addEventListener('keydown', function (e) {
+                if (modal.classList.contains('open')) {
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'ArrowRight') showNext();
+                    if (e.key === 'ArrowLeft') showPrev();
+                }
+            });
+
+            // close on outside click
+            modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+        });
+    })();
 </script>
