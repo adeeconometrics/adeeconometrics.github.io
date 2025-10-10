@@ -7,7 +7,13 @@ order: 6
 
 ## 2025
 
-- **Everyday Excellence Award**: _GenAI & Ansible Integration For driving GenAI adoption in Ansible development — introducing practical best practices, improving documentation, and demonstrating value to stakeholders through targeted demos that accelerated adoption and improved developer productivity_.
+- **Everyday Excellence Award on Proof of Design** _For leading the October team meeting and demoing a secure, reliable RESTful MCP design—facilitating focused discussion, producing practical artifacts, and helping the team adopt stronger, more consistent enterprise system design and security practices._
+
+- **Everyday Excellence Award for Azure Frontdoor Standard/Premium Implementation** _For exceptional partnership in the Front Door V2 role update — coordinating parallel workstreams that integrated seamlessly, avoided regressions, and delivered a low-friction, reliable rollout through clear communication, careful reviews, and shared ownership._
+
+- **Human Energy Award: Creating Measurable Value** _For taking ownership of modernizing the NextPage‑Dash library and enhancing the az-appgateway role, delivering practical workflow improvements that accelerated adoption, reduced technical debt, and increased team productivity._
+
+- **Everyday Excellence Award: GenAI Integration to Internal Developer Tools**: _GenAI & Ansible Integration For driving GenAI adoption in Ansible development — introducing practical best practices, improving documentation, and demonstrating value to stakeholders through targeted demos that accelerated adoption and improved developer productivity_.
 
 - **Everyday Excellence Award: University Outreach Impact** _Recognized for significant contributions to university engagement programs, where knowledge sharing and mentorship made a measurable impact on students' future career development._
 
