@@ -2,6 +2,7 @@
 title: Recognitions
 icon: fas fa-award
 order: 6
+carousel: true
 ---
 
 
