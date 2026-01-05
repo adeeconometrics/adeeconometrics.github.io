@@ -8,6 +8,12 @@ carousel: true
 
 ## 2025
 
+- **Everyday Excellence Award: Technical Series Leadership & Developer Growth** _For organizing and executing Part 2 of the technical series delivering hands-on exposure to application development that significantly accelerated career growth and technical capabilities across the organization._
+
+- **Human Energy Award: Developer Community Enablement** _Recognized for driving measurable business impact through technical excellence and organization-focused knowledge transfer, fostering professional development and advancing enterprise technical capabilities._
+
+- **Everyday Excellence Award for integrating AI into role development workflow reinfrocing standards** _For implementing Copilot Integration into the role development workflow, significantly enhancing role developer productivity by enabling seamless AI-assisted development—delivering measurable business impact through innovative technical execution and enabling team members to adopt advanced AI practices._
+
 - **Everyday Excellence Award on Proof of Design** _For leading the October team meeting and demoing a secure, reliable RESTful MCP design—facilitating focused discussion, producing practical artifacts, and helping the team adopt stronger, more consistent enterprise system design and security practices._
 
 - **Everyday Excellence Award for Azure Frontdoor Standard/Premium Implementation** _For exceptional partnership in the Front Door V2 role update — coordinating parallel workstreams that integrated seamlessly, avoided regressions, and delivered a low-friction, reliable rollout through clear communication, careful reviews, and shared ownership._
