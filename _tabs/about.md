@@ -37,6 +37,16 @@ Jul 2025 - Present
 
 - Improved global networking & security posture by implementing the Azure Frontdoor Standard/Premium Ansible Role for enterprise workloads which helped consolidate global edge routing, modern WAF policies, and TLS termination enabling up to ~45% TCO reduction in target scenarios while strengthening threat protection. 
 
+- Hardened platform security posture by enforcing HTTPS-only traffic controls across gateway backend pools, listeners, and health probes—eliminating plaintext transmission vectors and closing a class of transport-layer vulnerabilities across enterprise-facing infrastructure.
+
+- Contributed to establishing early enterprise standards for MCP tools designed to streamline enterprise-specific operations and accelerate secure agentic AI adoption. Standards are anchored around production-grade security to ensure that automation patterns are safe-by-default as the organization scales its agentic integrations.
+
+- Migrated platform gateway resources to a modern WAF Policy framework, transitioning from per-resource firewall rule management to a centralized policy model. This improved visibility over the security surface, reduced configuration drift, and hardened platform defenses while significantly lowering the operational overhead of maintaining consistent security rules at scale.
+
+- Led product-line engineering initiatives across a portfolio of 90+ Ansible roles servicing approximately 80% of the enterprise platform—establishing developer guardrails against security anti-patterns, enforcing standards compliance, and building platform resilience ahead of accelerated agentic AI integrations. Designed the system such that automated agents are constrained to validate proposed changes against standards before reaching production, ensuring bad code is caught at the gate rather than discovered in operations.
+
+- Led the early development of an Ansible roles toolchain for monitoring the current state of the product portfolio, extrapolating dependency and usage data for impact analysis, and proactively planning migration and deprecation paths for anticipated Azure resource announcements—enabling data-driven product decisions and significantly reducing the reactive maintenance burden across the enterprise platform.
+
 ### Software Engineer - IT Foundations, Chevron
 
 Feb 2024 - Jul 2025
