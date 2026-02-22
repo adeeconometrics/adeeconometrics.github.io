@@ -9,7 +9,7 @@ order: 4
 
 Welcome to my personal website! I'm Dave Amiana, a passionate software engineer specializing in enterprise architecture, automation, and innovative development solutions.
 
-With expertise spanning cloud infrastructure, API design, language server development, and AI-powered automation tools, I focus on building scalable, secure, and efficient systems that solve complex real-world challenges. My experience ranges from developing enterprise UI libraries and Ansible automation tools to implementing cutting-edge GenAI solutions with RAG architectures and local inferencing.
+With expertise spanning cloud infrastructure, API design, language server development, MCP governance patterns, and AI-powered automation tools, I focus on building scalable, secure, and efficient systems that solve complex real-world challenges. My experience ranges from shaping enterprise MCP governance frameworks and agentic tool use patterns to developing enterprise UI libraries, Ansible automation frameworks, and GenAI solutions—with a current focus on building secure, scalable foundations for agentic AI integration at the enterprise level.
 
 I'm particularly passionate about creating developer tools and experiences that enhance productivity—whether it's building language servers for better code assistance, designing API-enabled MCP server patterns with robust authentication layers, or developing automation frameworks that streamline complex workflows. My work bridges the gap between innovative technology and practical enterprise solutions, always with an eye toward maintainability, security, and performance optimization.
 
