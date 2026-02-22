@@ -34,14 +34,13 @@ I believe in the transformative power of well-architected software and the impor
 Jul 2025 - Present
 
 - Designed an API-enabled MCP server pattern with an authentication layer enabling RBAC and SSO that serves as a foundation for secure machine-to-service automation enabling interoperable transactions to integrate with MCP agents (Innovation Initiative).
+  - Contributed to establishing early enterprise standards for MCP tools designed to streamline enterprise-specific operations and accelerate secure agentic AI adoption. Standards are anchored around production-grade security to ensure that automation patterns are safe-by-default as the organization scales its agentic integrations.
 
 - Improved global networking & security posture by implementing the Azure Frontdoor Standard/Premium Ansible Role for enterprise workloads which helped consolidate global edge routing, modern WAF policies, and TLS termination enabling up to ~45% TCO reduction in target scenarios while strengthening threat protection. 
 
-- Hardened platform security posture by enforcing HTTPS-only traffic controls across gateway backend pools, listeners, and health probes—eliminating plaintext transmission vectors and closing a class of transport-layer vulnerabilities across enterprise-facing infrastructure.
-
-- Contributed to establishing early enterprise standards for MCP tools designed to streamline enterprise-specific operations and accelerate secure agentic AI adoption. Standards are anchored around production-grade security to ensure that automation patterns are safe-by-default as the organization scales its agentic integrations.
-
-- Migrated platform gateway resources to a modern WAF Policy framework, transitioning from per-resource firewall rule management to a centralized policy model. This improved visibility over the security surface, reduced configuration drift, and hardened platform defenses while significantly lowering the operational overhead of maintaining consistent security rules at scale.
+- Strengthened Application Gateway and WAF security posture across multiple impact surfaces:
+  - **Transport-layer hardening**: Enforced HTTPS-only traffic controls across backend pools, listeners, and health probes, eliminating plaintext transmission vectors and closing a class of transport-layer vulnerabilities across enterprise-facing infrastructure.
+  - **Configuration governance**: Migrated embedded WAF configurations to a centralized WAF Policy framework, reducing enterprise configuration drift, improving operational maintainability, and hardening the platform security surface through consistent, centrally managed firewall governance.
 
 - Led product-line engineering initiatives across a portfolio of 90+ Ansible roles servicing approximately 80% of the enterprise platform—establishing developer guardrails against security anti-patterns, enforcing standards compliance, and building platform resilience ahead of accelerated agentic AI integrations. Designed the system such that automated agents are constrained to validate proposed changes against standards before reaching production, ensuring bad code is caught at the gate rather than discovered in operations.
 
