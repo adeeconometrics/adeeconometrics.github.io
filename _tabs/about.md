@@ -33,7 +33,7 @@ I believe in the transformative power of well-architected software and the impor
 
 Jul 2025 - Present
 
-- Established enterprise MCP governance standards as an early adopter, actively shaping secure patterns for standardized agentic automation at enterprise scale:
+- As one of the enterprise's earliest adopters of MCP tooling, actively contributed to shaping the MCP governance landscape by establishing foundational security patterns and standards for safe, scalable agentic automation:
   - **Authentication & credential management**: Designed an API-enabled MCP server pattern with RBAC and SSO authentication layer transported via SSE/HTTP, serving as a foundation for secure machine-to-service automation enabling interoperable transactions to integrate with MCP agents (Innovation Initiative).
   - **Operational governance & compliance**: Evolved the initiative by establishing gateway standards for publishing MCP tools in isolated Docker environments, enforcing inbound/outbound traffic governance, and implementing security scanning of third-party and custom tools to ensure compliance with enterprise security standards before production deployment (Active Proposals).
 
