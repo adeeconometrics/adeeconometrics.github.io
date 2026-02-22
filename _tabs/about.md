@@ -33,8 +33,9 @@ I believe in the transformative power of well-architected software and the impor
 
 Jul 2025 - Present
 
-- Designed an API-enabled MCP server pattern with an authentication layer enabling RBAC and SSO that serves as a foundation for secure machine-to-service automation enabling interoperable transactions to integrate with MCP agents (Innovation Initiative).
-  - Contributed to establishing early enterprise standards for MCP tools designed to streamline enterprise-specific operations and accelerate secure agentic AI adoption. Standards are anchored around production-grade security to ensure that automation patterns are safe-by-default as the organization scales its agentic integrations.
+- Established enterprise MCP governance standards as an early adopter, actively shaping secure patterns for standardized agentic automation at enterprise scale:
+  - **Authentication & credential management**: Designed an API-enabled MCP server pattern with RBAC and SSO authentication layer transported via SSE/HTTP, serving as a foundation for secure machine-to-service automation enabling interoperable transactions to integrate with MCP agents (Innovation Initiative).
+  - **Operational governance & compliance**: Evolved the initiative by establishing gateway standards for publishing MCP tools in isolated Docker environments, enforcing inbound/outbound traffic governance, and implementing security scanning of third-party and custom tools to ensure compliance with enterprise security standards before production deployment (Active Proposals).
 
 - Improved global networking & security posture by implementing the Azure Frontdoor Standard/Premium Ansible Role for enterprise workloads which helped consolidate global edge routing, modern WAF policies, and TLS termination enabling up to ~45% TCO reduction in target scenarios while strengthening threat protection. 
 
